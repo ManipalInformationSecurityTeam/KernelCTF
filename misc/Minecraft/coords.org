@@ -1,0 +1,4 @@
+-252 77 90
+-173 50 255
+The End
+Flag: wtfCTF{Z66Ku4*nr!}

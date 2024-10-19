@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>{{ message }}</h1>
+    
+    {% if show_login %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+    
+    {% if 'user' in request.cookies or 'very_very_very_tasty_cookiedHJ5IHNjcmlwdGluZw' in request.cookies %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% endif %}
+</body>
+</html>
