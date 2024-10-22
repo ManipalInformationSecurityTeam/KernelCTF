@@ -1,25 +1,46 @@
 ## Question
-Hehe, I've hid a 15 character massive file. It's unlikely you're ever finding it
 
-*[dump.txt]*
+Let's go on a little road trip!
 
-Wrap the flag in the format wtfCTF{flag-here}
+*[0.png]*
 
+flag is wrapped in wtfCTF{}
 ## Hints
 
-1) There's no pattern to the way the letters are arranged, but there's a trend
+1) No Image Manipulation is required for this question
 
-2) No matter how big the file is, it's the content that *counts*
+2) There might be some metadata in the QRs themselves
 
-3) The flag is in ascending order
-
+3) https://www.qrcode.com/en/about/version.html (if given reduce points)
 
 ## Solution
-The file is filled with alphanumeric characters(a-z, A-Z and 0-9), the file is too big to prune through manually
+Each QR code has a broken link to another QR code- The link is either put in a URL shortener or repeated multiple times, either way you can get the link from the repeated strings
 
-If you'd try to get some statistics on the characters, you'll see that each has a different frequency. Sorting these charachters by frequency(Or plotting them), you'll see that the first 15 characters spell the flag
+The fact that the links are repeated is padding to change the amount of data in a QR code, which is where you can realize that the size of the QR codes is different
 
-['F', 'r', '3', 'q', 'u', 'e', 'n', 'C', 'y', 'd', '0', 'm', 'a', '1', 'N', 'z', 'X', 'Q', 'P', 'k', 'Z', 'f', 'H', 'J', 's', 'j', 'B', '5', 't', 'M', 'V', 'o', 'L', 'w', 'D', '4', '8', 'A', 'U', '9', 'l', 'c', 'g', '7', 'p', 'O', 'T', 'h', 'x', 'K', 'v', 'G', 'W', '2', 'b', 'I', 'S', '6', 'i', 'R', 'Y', 'E']
+QR codes have versions from 1-40, these QR codes are specifically using the binary encoding, all data taken from the website: https://www.qrcode.com/en/about/version.html
 
-Fr3qenCyd0ma1Nz
-wrap that in wtfCTF{}: wtfCTF{Fr3qenCyd0ma1Nz}
+So for example, QR 5 has the text "https://drive.proton.me/urls/HV6XY8A26C#8ILLgMnXo52Hhttps://" which is 60 bytes long, at Q Error Correction Level, making it version 5
+
+This is one of the few QRs which are not in H Error Correction Level, in general, all QRs fit the exact number of bytes required to be that version. The versions of the QR can also be read from the physical pixel size of the QRs, after that, each version correlates to a letter(A is 1, B is 2 and so on)
+
+Here is every image with the QR Version and it's corresponding letter
+
+0.png	Version 1	A
+1.png	Version 2 	B
+2.png	Version 5	E
+3.png	Version 1 	A
+4.png	Version 21	U
+5.png	Version 20 	T
+6.png	Version 9 	I
+7.png	Version 6 	F
+8.png	Version 21	U
+9.png	Version 12 	L
+10.png	Version 22 	V
+11.png	Version 22	V
+12.png	Version 9	I
+13.png	Version 19 	S
+14.png	Version 20	T
+15.png	Version 1 	A
+
+At the end, the flag is wrapped in wtfCTF{}, making it wtfCTF{ABEAUTIFULVVISTA}
